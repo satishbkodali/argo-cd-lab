@@ -193,23 +193,23 @@ The following example assumes:
 - You have a Git repository with example RSOT K8s manifests, and
 - You want Argo CD to deploy them into a namespace in the *same* cluster.
 
-Create a file named `rsot-demo-app.yaml`:
+Create a file named `argo-demo-app.yaml`:
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rsot-demo
+  name: argo-demo
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: git@github.com:tom-redis/argo-cd-lab.git
+    repoURL: https://github.com/tom-redis/argo-cd-lab.git
     targetRevision: HEAD
-    path: k8s/rsot-demo   # adjust to the actual path in your repo
+    path: k8s/argo-demo   # adjust to the actual path in your repo
   destination:
     server: https://kubernetes.default.svc
-    namespace: rsot-demo   # or an existing namespace such as redis-enterprise
+    namespace: argocd      # same namespace as Argo CD for this lab
   syncPolicy:
     automated:
       prune: true
@@ -219,14 +219,14 @@ spec:
 Apply the Application:
 
 ```bash
-k apply -f rsot-demo-app.yaml
+k apply -f argo-demo-app.yaml
 ```
 
 Sync and inspect it with the CLI:
 
 ```bash
-argocd app sync rsot-demo
-argocd app get rsot-demo
+argocd app sync argo-demo
+argocd app get argo-demo
 ```
 
 Or use the Web UI to visualize the Application tree, health, and sync status.

@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# For this lab, run operator + REC + REDB in the same namespace as Argo CD
+namespace: argocd
+
+resources:
+  # Official Redis Enterprise operator bundle (CRDs + operator Deployment)
+  - https://raw.githubusercontent.com/RedisLabs/redis-enterprise-k8s-docs/refs/heads/master/bundle.yaml
+
+  # Your cluster and database
+  - argo-rec.yaml
+  - argo-redb.yaml

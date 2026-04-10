@@ -123,11 +123,13 @@ Depending on how PS Portal exposes forwarded ports, you can usually:
 - Use the IDE/terminal “open port 8080” feature, or
 - Open a browser from your local machine to the lab’s forwarded URL (if provided by the lab UI).
 
-In a typical setup, the URL will be something like:
+In RSOT labs, HTTP(S) access goes through the `*.labs.ps-redis.com` domain. If your instance name is `instanceName` and PS Portal is exposing port 8080 for you, the URL will look like:
 
 ```text
-https://8080-dot-&lt;instanceName&gt;.dev.ps-redis.com
+https://8080-dot-<instanceName>.labs.ps-redis.com
 ```
+
+where &lt;instanceName&gt; is the unique 6-character string in the URL, "rl-s-labs-*xxxxxx*.ps-redis.com"
 
 Log in with:
 
@@ -185,7 +187,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:Redis-ProfessionalService/rsot-for-k8s.git
+    repoURL: git@github.com:tom-redis/argo-cd-lab.git
     targetRevision: HEAD
     path: k8s/rsot-demo   # adjust to the actual path in your repo
   destination:

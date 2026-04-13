@@ -76,13 +76,13 @@ chmod +x argocd
 sudo mv argocd /usr/local/bin/
 ```
 
-Verify:
+Verify the CLI binary only (no server connection yet):
 
 ```bash
 argocd version --client
 ```
 
-(If this fails, make sure `/usr/local/bin` is in your `$PATH`.)
+If this command prints a client version block, the install is good. Any errors about `localhost:8080` or server connectivity are expected at this stage and will be resolved after you set up port-forwarding in §6.
 
 ---
 
@@ -110,9 +110,10 @@ export ARGOCD_ADMIN_PASSWORD="$(k -n argocd get secret argocd-initial-admin-secr
 
 In the RSOT for K8s lab, the simplest way to access Argo CD is port-forwarding from the lab host.
 
-Right click the browser tab for the terminal; click **Duplicate** to open a separate dedicated terminal.
+Right click the browser tab for the terminal; click **Duplicate** to open a separate dedicated terminal. In the new terminal tab run this.
 
 ```bash
+alias k='sudo kubectl'
 k -n argocd port-forward svc/argocd-server 8080:80
 ```
 
@@ -256,3 +257,4 @@ If you created any Argo-managed workloads (Applications, namespaces, etc.), dele
 - **Scope:** These steps are intended for **your own testing/dry runs**. For customer-facing RSOT deliveries, avoid modifying the shared lab image beyond the official exercises unless you explicitly need to demo Argo CD.
 - **Persistence:** RSOT labs are ephemeral. When the lab is torn down, any Argo CD state in the cluster is lost. Keep your manifests and configuration in Git so you can recreate Argo CD quickly in a fresh lab.
 - **Security:** This setup uses default Argo CD credentials and `--insecure` CLI options for convenience in an isolated training environment. Do **not** reuse this pattern as-is in production clusters.
+- **Minor CRD diffs:** The Kubernetes API normalizes the Redis Enterprise CRDs (for example by adding `spec.preserveUnknownFields: false`). As a result, Argo CD may always show a small `preserveUnknownFields` diff for those CRDs. For this lab, it is safe to ignore that OutOfSync signal as long as the REC (`argo-cluster`) and REDB (`argo-redb`) themselves are **Synced** and **Healthy**.

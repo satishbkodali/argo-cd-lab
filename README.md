@@ -79,7 +79,7 @@ sudo mv argocd /usr/local/bin/
 Verify:
 
 ```bash
-argocd version
+argocd version --client
 ```
 
 (If this fails, make sure `/usr/local/bin` is in your `$PATH`.)

@@ -6,6 +6,7 @@ spec:
   redisEnterpriseCluster:
     name: argo-cluster
   memorySize: 100MB
+  shardCount: 1
   databasePort: 12000
   replication: false
   persistence: "disabled"

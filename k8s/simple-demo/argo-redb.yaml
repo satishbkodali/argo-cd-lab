@@ -8,5 +8,6 @@ spec:
   memorySize: 100MB
   shardCount: 1
   databasePort: 12000
+  shardsCount: 1
   replication: false
   persistence: "disabled"

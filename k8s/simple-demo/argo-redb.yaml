@@ -7,6 +7,6 @@ spec:
     name: argo-cluster
   memorySize: 100MB
   databasePort: 12000
-  shardsCount: 3
+  shardsCount: 1
   replication: false
   persistence: "disabled"
